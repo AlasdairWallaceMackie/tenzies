@@ -14,7 +14,7 @@ export default function App(){
     const [dice, setDice] = React.useState(allNewDice())
     const diceElements = dice.map(val => (<Die value={val}/>))
 
-    function resetDice(){
+    function reRoll(){
         setDice(prevDice => prevDice = allNewDice())
     }
 
@@ -25,7 +25,7 @@ export default function App(){
                 {diceElements}
             </div>
             <div className="d-flex justify-content-center">
-                <button id="roll-button" className="btn btn-lg btn-success shadow" onClick={resetDice}>Roll</button>
+                <button id="roll-button" className="btn btn-lg btn-success shadow-lg px-5" onClick={reRoll}>Roll</button>
             </div>
         </main>
     )
