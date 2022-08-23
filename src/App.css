@@ -17,6 +17,11 @@ main h1{
     font-weight: normal;
 }
 
+main.disabled{
+    filter: blur(6px);
+    pointer-events: none;
+}
+
 .die{
     width: 100px;
     height: 100px;
@@ -34,4 +39,9 @@ main h1{
 
 #roll-button{
     font-size: 40px;
+}
+
+#win-modal{
+    height: 250px;
+    width: 250px;   
 }
