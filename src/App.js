@@ -41,13 +41,18 @@ export default function App(){
         })
     }
 
+    // React.useEffect(() => {})
 
     return (
         <main className="m-5 p-5 rounded-3">
             <h1 className="text-center">Tenzies</h1>
-            <div id="dice-grid" className="d-flex justify-content-evenly flex-wrap mb-5">
+
+            <p className="text-center text-muted fs-4">Roll until all dice are the same value. Click each die to hold its value between rolls.</p>
+
+            <div id="dice-grid" className="d-flex justify-content-evenly flex-wrap mb-4">
                 {diceElements}
             </div>
+            
             <div className="d-flex justify-content-center">
                 <button id="roll-button" className="btn btn-lg btn-success shadow-lg px-5" onClick={reRoll}>Roll</button>
             </div>
