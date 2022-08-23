@@ -3,6 +3,29 @@ import Die from "./components/Die"
 
 export default function App(){
 
+    const [tenzies, setTenzies] = React.useState(false)
+    const [dice, setDice] = React.useState(allNewDice())
+    const diceElements = dice.map(die => (
+        <Die
+            key={die.id}
+            value={die.value}
+            isHeld={die.isHeld}
+            onClick={() => toggleHold(die.id)}
+        />
+    ))
+
+    function WinModal(){
+        return (
+            <div id="win-modal" className="rounded-3 shadow-lg border bg-white position-absolute top-50 start-50 translate-middle text-center pt-5">
+                <h1 className="display-3 mb-4">You Win!</h1>
+                <button className="btn btn-lg btn-primary shadow" onClick={reRoll}>Play Again?</button>
+            </div>
+        )
+    }
+
+
+
+
     function getDiceNumber(){
         return Math.ceil(Math.random() * 6)
     }
@@ -27,28 +50,9 @@ export default function App(){
         })
     }
 
-    const [tenzies, setTenzies] = React.useState(false)
-    const [dice, setDice] = React.useState(allNewDice())
-    const diceElements = dice.map(die => (
-        <Die
-            key={die.id}
-            value={die.value}
-            isHeld={die.isHeld}
-            onClick={() => toggleHold(die.id)}
-        />
-    ))
-
-    function WinModal(){
-        return (
-            <div id="win-modal" className="rounded-3 shadow-lg border bg-white position-absolute top-50 start-50 translate-middle text-center pt-5">
-                <h1 className="display-3 mb-4">You Win!</h1>
-                <button className="btn btn-lg btn-primary shadow" onClick={reRoll}>Play Again?</button>
-            </div>
-        )
-    }
-
     function reRoll(){
         if (tenzies){
+            // If game has won, reset win condition and remove hold from all dice
             setTenzies(prevState => prevState=false)
             setDice(prevDice => prevDice.map(die => ({...die, isHeld: false})))
         }
@@ -60,20 +64,16 @@ export default function App(){
         })
     }
 
-    React.useEffect(() => {
-        let hasWon = true
-
-        if (dice[0].isHeld){
-            let winningValue = dice[0].value
-
-            for (var i=1; i<dice.length; i++){
-                if ( !dice[i].isHeld || dice[i].value !== winningValue )
-                    hasWon = false
-            }
-
-            setTenzies(prevState => prevState = hasWon)
-        }
+    React.useEffect(() => {        
+        let firstValue = dice[0].value
+        if (dice.every(die => die.isHeld===true) && dice.every(die => die.value===firstValue))
+            setTenzies(prevState => prevState = true)
     }, [dice])
+
+
+
+
+
 
     const mainClasses = "m-5 p-5 rounded-3 "
         + (tenzies ? "disabled" : "")

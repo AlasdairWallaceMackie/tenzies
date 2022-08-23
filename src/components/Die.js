@@ -3,7 +3,11 @@ export default function Die(props){
         + (props.isHeld ? "bg-success text-white" : "bg-white text-black")
 
     return (
-        <div id={`die-${props.id}`} className={classes} onClick={props.onClick}>
+        <div
+            id={`die-${props.id}`}
+            className={classes}
+            onClick={props.onClick}
+        >
             <h1 className="die--value mt-2">{props.value}</h1>
         </div>
     )
